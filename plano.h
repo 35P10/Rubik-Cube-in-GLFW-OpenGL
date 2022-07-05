@@ -17,15 +17,21 @@ public:
     void setColor(glm::vec4 new_color) {
         color = new_color;
     }
-    void render(glm::mat4 transform) {
+    void render(glm::mat4 transform, glm::mat4 model, glm::mat4 view) {
         glUseProgram(shaderProgram);
+
+        unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
         unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
+        unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
         int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
         glUniform4f(vertexColorLocation, color[0], color[1], color[2], color[3]);
-        // render container
+        // render containers
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
@@ -73,9 +79,11 @@ private:
         const char* vertexShaderSource = "#version 330 core\n"
             "layout(location = 0) in vec3 aPos; \n"
             "uniform mat4 transform; \n"
+            "uniform mat4 model; \n"
+            "uniform mat4 view; \n"
             "void main()\n"
             "{\n"
-            "    gl_Position = transform * vec4(aPos, 1.0);\n"
+            "    gl_Position = view * model * transform * vec4(aPos, 1.0);\n"
             "}\n";
         const char* fragmentShaderSource = "#version 330 core\n"
             "out vec4 FragColor;\n"

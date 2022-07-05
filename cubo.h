@@ -2,9 +2,9 @@
 
 class Cubo {
 public:
-    glm::mat4 model_;
+    glm::mat4 model;
+    //glm::mat4 view;
 
-    glm::vec3 pos_inicial;
     //trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
     /*
     color estructura
@@ -15,18 +15,18 @@ public:
     4. down
     5. up
     */
-    Cubo(std::vector<glm::vec4> newColor, glm::vec3 translacion, glm::vec3 escalar, glm::mat4 model) {
+    Cubo(std::vector<glm::vec4> newColor, glm::vec3 translacion, glm::vec3 escalar, glm::mat4 model_) {
 
         colores.clear();
         for (int i = 0; i < 6; i++) {
             colores.push_back(newColor[i]);
         }
 
+        model = model_;
+;
         transform = glm::scale(transform, escalar);
         transform = glm::translate(transform, translacion);
 
-        //transform = model * transform;
-        model_ = model;
         float vertices1[] = {
             // positions          // texture coords
             -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -82,16 +82,15 @@ public:
         return transform;
     }
 
-    void render() {
+    void render(glm::mat4 view) {
         for (int i = 0; i < 6; i++)
-            lados[i].render(transform);
+            lados[i].render(transform,model,view);
     }
-
 
     void set_rotation(float rot_grades, glm::vec3 rot_vect, glm::mat4 _transform) {
 
         //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(1.0f, 0.0f, 0.0f));
-        glm::mat4 model_2 = glm::rotate(model_, glm::radians(rot_grades), rot_vect);
+        glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(rot_grades), rot_vect);
         //gl_Position = projection * view * model * vec4(aPos, 1.0);
         transform = model_2 * transform;
     }
@@ -101,13 +100,11 @@ public:
     void input(GLFWwindow* window) {
         //eje x
 
-        if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-        }
-
+        /*
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
 
             //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(1.0f, 0.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(model_, glm::radians(-0.8f), glm::vec3(1.0f, 0.0f, 0.0f));
+            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(-0.8f), glm::vec3(1.0f, 0.0f, 0.0f));
             //gl_Position = projection * view * model * vec4(aPos, 1.0);
             transform = model_2 * transform;
 
@@ -115,34 +112,37 @@ public:
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
             //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(1.0f, 0.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(model_, glm::radians(0.8f), glm::vec3(1.0f, 0.0f, 0.0f));
+            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(0.8f), glm::vec3(1.0f, 0.0f, 0.0f));
             //gl_Position = projection * view * model * vec4(aPos, 1.0);
             transform = model_2 * transform;
         }
-        /*
+        
         //eje y
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
             //model_ = glm::rotate(model_, glm::radians(-0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
             glm::mat4 model_2 = glm::rotate(model_, glm::radians(-0.8f), glm::vec3(0.0f, 1.0f, 0.0f));
             transform = model_2 * transform;
         }
+        
+
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
             //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(model_, glm::radians(0.8f), glm::vec3(0.0f, 1.0f, 0.0f));
+            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(0.8f), glm::vec3(0.0f, 1.0f, 0.0f));
             transform = model_2 * transform;
         }
-        */
+        
         //eje z
         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
             //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
-            glm::mat4 model_2 = glm::rotate(model_, glm::radians(0.8f), glm::vec3(0.0f, 0.0f, 1.0f));
+            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(0.8f), glm::vec3(0.0f, 0.0f, 1.0f));
             transform = model_2 * transform;
         }
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
             //model_ = glm::rotate(model_, glm::radians(-0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
-            glm::mat4 model_2 = glm::rotate(model_, glm::radians(-0.8f), glm::vec3(0.0f, 0.0f, 1.0f));
+            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(-0.8f), glm::vec3(0.0f, 0.0f, 1.0f));
             transform = model_2 * transform;
         }
+        */
     }
 
     void setColor(std::vector<glm::vec4> newColor) {

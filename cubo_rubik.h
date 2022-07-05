@@ -16,7 +16,13 @@ public:
     int velocidad = 20;
     float radians = 90.0 / velocidad;
     int contador_interacion = 0;
-    void render(GLFWwindow* window) {
+
+    cubo_rubick() {
+        //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    }
+
+
+    void render(GLFWwindow* window, glm::mat4 view) {
 
         if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && U_action == 0)
             U_action = 1;
@@ -28,10 +34,8 @@ public:
             U_action = 4;
         if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS && U_action == 0)
             U_action = 5;
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS && U_action == 0)
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS && U_action == 0)
             U_action = 6;
-
-
 
         if (U_action == 1){
             contador_interacion++;
@@ -49,14 +53,12 @@ public:
                 cubo_06 = cubo_08;
                 cubo_09 = cubo_07;
                 cubo_08 = cubo_04;
-                cubo_04 = temp2;
                 cubo_07 = temp1;
-
+                cubo_04 = temp2;
             }
-            float radians = 90.0 / velocidad;
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[0][i]->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f), model_X);
+                ptr2[0][i]->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f), model);
         }
         else if (U_action == 2) {
             contador_interacion++;
@@ -105,7 +107,7 @@ public:
             glm::mat4 model_X = glm::mat4(1.0f);
 
             for (int i = 0; i < 9; i++)
-                ptr2[3][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+                ptr2[3][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
         }
         else if (U_action == 4) {
             contador_interacion++;
@@ -152,7 +154,7 @@ public:
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[4][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+                ptr2[4][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
    
         }
         else if (U_action == 6) {
@@ -179,85 +181,85 @@ public:
                 ptr2[5][i]->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
         }
 
-        cubo_01.render();
+        cubo_01.render(view);
         cubo_01.input(window);
 
-        cubo_02.render();
+        cubo_02.render(view);
         cubo_02.input(window);
 
-        cubo_03.render();
+        cubo_03.render(view);
         cubo_03.input(window);
 
-        cubo_04.render();
+        cubo_04.render(view);
         cubo_04.input(window);
 
-        cubo_05.render();
+        cubo_05.render(view);
         cubo_05.input(window);
 
-        cubo_06.render();
+        cubo_06.render(view);
         cubo_06.input(window);
 
-        cubo_07.render();
+        cubo_07.render(view);
         cubo_07.input(window);
 
-        cubo_08.render();
+        cubo_08.render(view);
         cubo_08.input(window);
 
-        cubo_09.render();
+        cubo_09.render(view);
         cubo_09.input(window);
 
-        cubo_11.render();
+        cubo_11.render(view);
         cubo_11.input(window);
 
-        cubo_12.render();
+        cubo_12.render(view);
         cubo_12.input(window);
 
-        cubo_13.render();
+        cubo_13.render(view);
         cubo_13.input(window);
 
-        cubo_14.render();
+        cubo_14.render(view);
         cubo_14.input(window);
 
-        cubo_15.render();
+        cubo_15.render(view);
         cubo_15.input(window);
 
-        cubo_16.render();
+        cubo_16.render(view);
         cubo_16.input(window);
 
-        cubo_17.render();
+        cubo_17.render(view);
         cubo_17.input(window);
 
-        cubo_18.render();
+        cubo_18.render(view);
         cubo_18.input(window);
 
-        cubo_19.render();
+        cubo_19.render(view);
         cubo_19.input(window);
 
-        cubo_21.render();
+        cubo_21.render(view);
         cubo_21.input(window);
 
-        cubo_22.render();
+        cubo_22.render(view);
         cubo_22.input(window);
 
-        cubo_23.render();
+        cubo_23.render(view);
         cubo_23.input(window);
 
-        cubo_24.render();
+        cubo_24.render(view);
         cubo_24.input(window);
 
-        cubo_25.render();
+        cubo_25.render(view);
         cubo_25.input(window);
 
-        cubo_26.render();
+        cubo_26.render(view);
         cubo_26.input(window);
 
-        cubo_27.render();
+        cubo_27.render(view);
         cubo_27.input(window);
 
-        cubo_28.render();
+        cubo_28.render(view);
         cubo_28.input(window);
 
-        cubo_29.render();
+        cubo_29.render(view);
         cubo_29.input(window);
 
     }
@@ -271,7 +273,8 @@ public:
     glm::vec4 bk = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 private:
-    glm::mat4 model = glm::mat4(1.0f);
+    //glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
     /*
 
@@ -316,134 +319,6 @@ private:
     Cubo cubo_27 = Cubo(std::vector<glm::vec4>{g, bk, o, bk, y, bk}, glm::vec3(-1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
     Cubo cubo_28 = Cubo(std::vector<glm::vec4>{g, bk, bk, bk, y, bk}, glm::vec3(0.0f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
     Cubo cubo_29 = Cubo(std::vector<glm::vec4>{g, bk, bk, r, y, bk}, glm::vec3(1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-
-
-    void U() {
-        float radians = 90.0 / velocidad;
-        glm::mat4 model_X = ptr2[0][4]->get_model();
-        for (int loop = 0; loop < velocidad; loop++) {
-            for (int i = 0; i < 9; i++)
-                ptr2[0][i]->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f), model_X);
-        }
-
-        //actualizando valores
-        Cubo temp1 = cubo_01;
-        Cubo temp2 = cubo_02;
-        cubo_01 = cubo_03;
-        cubo_02 = cubo_06;
-        cubo_03 = cubo_09;
-        cubo_06 = cubo_08;
-        cubo_09 = cubo_07;
-        cubo_08 = cubo_04;
-        cubo_04 = temp2;
-        cubo_07 = temp1;
-    }
-
-    void L() {
-        glm::mat4 model_X = ptr2[1][4]->get_model();
-        float radians = 90.0 / velocidad;
-        for (int loop = 0; loop < velocidad; loop++) {
-            for (int i = 0; i < 9; i++)
-                ptr2[1][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
-        }
-
-        //actualizando valores
-        Cubo temp7 = cubo_07;
-        Cubo temp4 = cubo_04;
-        cubo_07 = cubo_01;
-        cubo_04 = cubo_11;
-        cubo_01 = cubo_21;
-        cubo_11 = cubo_24;
-        cubo_21 = cubo_27;
-        cubo_24 = cubo_17;
-        cubo_27 = temp7;
-        cubo_17 = temp4;
-    }
-
-    void F() {
-        glm::mat4 model_X = ptr2[1][8]->get_model();
-        float radians = 90.0 / velocidad;
-        for (int loop = 0; loop < velocidad; loop++) {
-            for (int i = 0; i < 9; i++)
-                ptr2[3][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
-        }
-
-        //actualizando valores
-        Cubo temp7 = cubo_07;
-        Cubo temp8 = cubo_08;
-        cubo_07 = cubo_09;
-        cubo_08 = cubo_19;
-        cubo_09 = cubo_29;
-        cubo_19 = cubo_28;
-        cubo_29 = cubo_27;
-        cubo_28 = cubo_17;
-        cubo_27 = temp7;
-        cubo_17 = temp8;
-    }
-
-    void R() {
-        glm::mat4 model_X = ptr2[1][8]->get_model();
-        float radians = 90.0 / velocidad;
-        for (int loop = 0; loop < velocidad; loop++) {
-            for (int i = 0; i < 9; i++)
-                ptr2[2][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
-        }
-
-        //actualizando valores
-        Cubo temp9 = cubo_09;
-        Cubo temp6 = cubo_06;
-        cubo_09 = cubo_03;
-        cubo_06 = cubo_13;
-        cubo_03 = cubo_23;
-        cubo_13 = cubo_26;
-        cubo_23 = cubo_29;
-        cubo_26 = cubo_19;
-        cubo_29 = temp9;
-        cubo_19 = temp6;
-    }
-
-
-    void B() {
-        glm::mat4 model_X = ptr2[1][8]->get_model();
-        float radians = 90.0 / velocidad;
-        for (int loop = 0; loop < velocidad; loop++) {
-            for (int i = 0; i < 9; i++)
-                ptr2[4][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
-        }
-
-        //actualizando valores
-        Cubo temp1 = cubo_01;
-        Cubo temp2 = cubo_02;
-        cubo_01 = cubo_03;
-        cubo_02 = cubo_13;
-        cubo_03 = cubo_23;
-        cubo_13 = cubo_22;
-        cubo_23 = cubo_21;
-        cubo_22 = cubo_11;
-        cubo_21 = temp1;
-        cubo_11 = temp2;
-    }
-
-    void D() {
-        glm::mat4 model_X = ptr2[1][8]->get_model();
-        float radians = 90.0 / velocidad;
-        for (int loop = 0; loop < velocidad; loop++) {
-            for (int i = 0; i < 9; i++)
-                ptr2[5][i]->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
-        }
-
-        //actualizando valores
-        Cubo temp21 = cubo_21;
-        Cubo temp22 = cubo_22;
-        cubo_21 = cubo_23;
-        cubo_22 = cubo_26;
-        cubo_23 = cubo_29;
-        cubo_26 = cubo_28;
-        cubo_29 = cubo_27;
-        cubo_28 = cubo_24;
-        cubo_27 = temp21;
-        cubo_24 = temp22;
-    }
 
 
     Cubo* ptr2[6][9] =
