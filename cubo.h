@@ -88,61 +88,13 @@ public:
     }
 
     void set_rotation(float rot_grades, glm::vec3 rot_vect, glm::mat4 _transform) {
-
-        //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(1.0f, 0.0f, 0.0f));
         glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(rot_grades), rot_vect);
-        //gl_Position = projection * view * model * vec4(aPos, 1.0);
         transform = model_2 * transform;
     }
 
 
-
     void input(GLFWwindow* window) {
-        //eje x
-
-        /*
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-
-            //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(1.0f, 0.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(-0.8f), glm::vec3(1.0f, 0.0f, 0.0f));
-            //gl_Position = projection * view * model * vec4(aPos, 1.0);
-            transform = model_2 * transform;
-
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(1.0f, 0.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(0.8f), glm::vec3(1.0f, 0.0f, 0.0f));
-            //gl_Position = projection * view * model * vec4(aPos, 1.0);
-            transform = model_2 * transform;
-        }
-        
-        //eje y
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            //model_ = glm::rotate(model_, glm::radians(-0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(model_, glm::radians(-0.8f), glm::vec3(0.0f, 1.0f, 0.0f));
-            transform = model_2 * transform;
-        }
-        
-
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
-            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(0.8f), glm::vec3(0.0f, 1.0f, 0.0f));
-            transform = model_2 * transform;
-        }
-        
-        //eje z
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-            //model_ = glm::rotate(model_, glm::radians(0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
-            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(0.8f), glm::vec3(0.0f, 0.0f, 1.0f));
-            transform = model_2 * transform;
-        }
-        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-            //model_ = glm::rotate(model_, glm::radians(-0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
-            glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(-0.8f), glm::vec3(0.0f, 0.0f, 1.0f));
-            transform = model_2 * transform;
-        }
-        */
+        //vacio
     }
 
     void setColor(std::vector<glm::vec4> newColor) {
@@ -161,5 +113,5 @@ private:
     glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), //magenta
     glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), //celeste
     glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)  //amarillo
-    };;
+    };
 };

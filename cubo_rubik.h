@@ -13,7 +13,7 @@ public:
     6 -> DOWN/BOTTOM
     */
     int U_action = 0;
-    int velocidad = 20;
+    int velocidad = 40;
     float radians = 90.0 / velocidad;
     int contador_interacion = 0;
 
