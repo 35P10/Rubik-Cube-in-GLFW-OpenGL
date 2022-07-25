@@ -22,7 +22,7 @@ public:
     }
 
 
-    void render(GLFWwindow* window, glm::mat4 view) {
+    void render(GLFWwindow* window, glm::mat4 view, glm::mat4 projection) {
 
         if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && U_action == 0)
             U_action = 1;
@@ -181,85 +181,85 @@ public:
                 ptr2[5][i]->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
         }
 
-        cubo_01.render(view);
+        cubo_01.render(view, projection);
         cubo_01.input(window);
 
-        cubo_02.render(view);
+        cubo_02.render(view, projection);
         cubo_02.input(window);
 
-        cubo_03.render(view);
+        cubo_03.render(view, projection);
         cubo_03.input(window);
 
-        cubo_04.render(view);
+        cubo_04.render(view, projection);
         cubo_04.input(window);
 
-        cubo_05.render(view);
+        cubo_05.render(view, projection);
         cubo_05.input(window);
 
-        cubo_06.render(view);
+        cubo_06.render(view, projection);
         cubo_06.input(window);
 
-        cubo_07.render(view);
+        cubo_07.render(view, projection);
         cubo_07.input(window);
 
-        cubo_08.render(view);
+        cubo_08.render(view, projection);
         cubo_08.input(window);
 
-        cubo_09.render(view);
+        cubo_09.render(view, projection);
         cubo_09.input(window);
 
-        cubo_11.render(view);
+        cubo_11.render(view, projection);
         cubo_11.input(window);
 
-        cubo_12.render(view);
+        cubo_12.render(view, projection);
         cubo_12.input(window);
 
-        cubo_13.render(view);
+        cubo_13.render(view, projection);
         cubo_13.input(window);
 
-        cubo_14.render(view);
+        cubo_14.render(view, projection);
         cubo_14.input(window);
 
-        cubo_15.render(view);
+        cubo_15.render(view, projection);
         cubo_15.input(window);
 
-        cubo_16.render(view);
+        cubo_16.render(view, projection);
         cubo_16.input(window);
 
-        cubo_17.render(view);
+        cubo_17.render(view, projection);
         cubo_17.input(window);
 
-        cubo_18.render(view);
+        cubo_18.render(view, projection);
         cubo_18.input(window);
 
-        cubo_19.render(view);
+        cubo_19.render(view, projection);
         cubo_19.input(window);
 
-        cubo_21.render(view);
+        cubo_21.render(view, projection);
         cubo_21.input(window);
 
-        cubo_22.render(view);
+        cubo_22.render(view, projection);
         cubo_22.input(window);
 
-        cubo_23.render(view);
+        cubo_23.render(view, projection);
         cubo_23.input(window);
 
-        cubo_24.render(view);
+        cubo_24.render(view, projection);
         cubo_24.input(window);
 
-        cubo_25.render(view);
+        cubo_25.render(view, projection);
         cubo_25.input(window);
 
-        cubo_26.render(view);
+        cubo_26.render(view, projection);
         cubo_26.input(window);
 
-        cubo_27.render(view);
+        cubo_27.render(view, projection);
         cubo_27.input(window);
 
-        cubo_28.render(view);
+        cubo_28.render(view, projection);
         cubo_28.input(window);
 
-        cubo_29.render(view);
+        cubo_29.render(view, projection);
         cubo_29.input(window);
 
     }

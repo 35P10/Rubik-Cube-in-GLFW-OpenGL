@@ -112,8 +112,10 @@ int main()
 
         // camera/view transformation
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        
-        Holaaa->render(window,view);
+        glm::mat4 projection = glm::mat4(1.0f);
+        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+        Holaaa->render(window,view, projection);
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
