@@ -15,7 +15,7 @@ public:
     4. down
     5. up
     */
-    Cubo(std::vector<glm::vec4> newColor, glm::vec3 translacion, glm::vec3 escalar, glm::mat4 model_) {
+    Cubo(std::vector<glm::vec4> newColor, std::string newColorDescription, glm::vec3 translacion, glm::vec3 escalar, glm::mat4 model_) {
 
         colores.clear();
         for (int i = 0; i < 6; i++) {
@@ -76,6 +76,7 @@ public:
         lados[4].setColor(colores[4]); lados[4].setVertices(vertices5, indices);
         lados[5].setColor(colores[5]); lados[5].setVertices(vertices6, indices);
 
+        setColorDescription(newColorDescription[0], newColorDescription[1], newColorDescription[2]);
     }
 
     glm::mat4 get_model() {
@@ -92,26 +93,50 @@ public:
         transform = model_2 * transform;
     }
 
-
-    void input(GLFWwindow* window) {
-        //vacio
-    }
-
     void setColor(std::vector<glm::vec4> newColor) {
         colores.clear();
         for (int i = 0; i < 6; i++) {
             colores.push_back(newColor[i]);
         }
     }
+
+    void setColorDescription(char x = 'x', char y = 'y', char z = 'z') {
+        colorDescription[0] = z;
+        colorDescription[1] = x;
+        colorDescription[2] = y;
+    }
+
+    void rot_z(){
+        std::swap(colorDescription[1], colorDescription[2]);
+    }
+
+    void rot_x() {
+        std::swap(colorDescription[0], colorDescription[2]);
+    }
+
+    void rot_y() {
+        std::swap(colorDescription[0], colorDescription[1]);
+    }
+
+    /*
+     0 => UP/DOWN
+     1 => FRONT/BEHIND
+     2 => LEFT/RIGHT
+    */
+    char getColor(int i) {
+        return colorDescription[i];
+    }
+
 private:
-    glm::mat4               transform = glm::mat4(1.0f);
+    glm::mat4 transform = glm::mat4(1.0f);
     Plano* lados = new Plano[6];
     std::vector<glm::vec4>  colores = {
-    glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), //azul
-    glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), //rojo
-    glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), //verde
-    glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), //magenta
-    glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), //celeste
-    glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)  //amarillo
+        glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), //front
+        glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), //behind
+        glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), //left
+        glm::vec4(1.0f, 0.0f, 1.0f, 1.0f), //right
+        glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), //down
+        glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)  //up
     };
+    std::vector<char> colorDescription = { 'z','x','y'};
 };

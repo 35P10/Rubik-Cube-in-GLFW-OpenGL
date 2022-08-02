@@ -7,11 +7,17 @@
 
 #include <iostream>
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>     /* abs */
+#include <string.h>
+#include <sstream> 
 
 #include "plano.h"
 #include "cubo.h"
+#include "defineRubik.h"
 #include "cubo_rubik.h"
-
+#include "cubo_rubik.cpp"
 
 
 /*/////////////////////////////////////////////////
@@ -51,6 +57,13 @@ float fov = 45.0f;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
+//colores
+#define AZUL glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
+#define ROJO glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
+#define VERDE glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)
+#define MAGENTA glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)
+#define CELESTE glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)
+#define AMARILLO glm::vec4(1.0f, 0.835f,0.0f,1.0f)
 
 int main()
 {
@@ -95,7 +108,9 @@ int main()
 
 
     cubo_rubick* Holaaa = new cubo_rubick();
-
+    
+    //Holaaa->resolver();
+    //Holaaa->mapeo();
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -117,13 +132,12 @@ int main()
 
         Holaaa->render(window,view, projection);
 
-
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
+    
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();

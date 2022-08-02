@@ -15,13 +15,54 @@ public:
     int velocidad = 40;
     float radians = 90.0 / velocidad;
     int contador_interacion = 0;
-
+    char mov='_';
+    bool _resolver = false;
     cubo_rubick() {
         //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     }
-    void render(GLFWwindow* window, glm::mat4 view, glm::mat4 projection) {
-
-        //U horario
+    void handle_solution_animations(GLFWwindow* window){
+        if(_resolver && U_action == 0){
+            if (solution.size() == 0) {
+                mov = '_';
+                _resolver = false;
+            }
+            else {
+                mov = solution[0];
+                solution.erase(solution.begin());
+            }
+            switch (mov) {
+                case 'U':
+                    U_action = 1;
+                case 'u':
+                    U_action = 1;
+                case 'F':
+                    U_action = 1;
+                case 'f':
+                    U_action = 1;
+                case 'B':
+                    U_action = 1;
+                case 'b':
+                    U_action = 1;
+                case 'R':
+                    U_action = 1;
+                case 'r':
+                    U_action = 1;
+                case 'L':
+                    U_action = 1;
+                case 'l':
+                    U_action = 1;
+                case 'D':
+                    U_action = 1;
+                case 'd':
+                    U_action = 1;
+                default:
+                    break;
+            }
+        }
+    }
+    void input(GLFWwindow* window){
+        if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS && !_resolver)
+            this->mapping();
         if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && U_action == 0)
             U_action = 1;
         if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && U_action == 0)
@@ -34,26 +75,21 @@ public:
             U_action = 5;
         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS && U_action == 0)
             U_action = 6;
-        //U antihorario
         if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS && U_action == 0)
             U_action = 7;
-        //L antihorario
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && U_action == 0)
             U_action = 8;
-        //F antihorario
         if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS && U_action == 0)
             U_action = 9;
-        //R antihorario
         if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && U_action == 0)
             U_action = 10;
-        //B antihorario
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS && U_action == 0)
             U_action = 11;
-        //D antihorario
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS && U_action == 0)
             U_action = 12;
-
-        if (U_action == 1){
+    }
+    void animations() {
+        if (U_action == 1) {
             contador_interacion++;
             if (contador_interacion >= velocidad) {
                 contador_interacion = 0;
@@ -72,20 +108,13 @@ public:
                 cubo_07 = temp1;
                 cubo_04 = temp2;
 
-                char tempcolor1 = ptr2[0][0].second;
-                char tempcolor2 = ptr2[0][1].second;
-                ptr2[0][0].second = ptr2[0][2].second;
-                ptr2[0][1].second = ptr2[0][5].second;
-                ptr2[0][2].second = ptr2[0][8].second;
-                ptr2[0][5].second = ptr2[0][7].second;
-                ptr2[0][8].second = ptr2[0][6].second;
-                ptr2[0][7].second = ptr2[0][3].second;
-                ptr2[0][6].second = tempcolor1;
-                ptr2[0][3].second = tempcolor2;
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[0][i]->rot_z();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[0][i].first->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f), model);
+                ptr2[0][i]->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f), model);
         }
         if (U_action == 7) {
             contador_interacion++;
@@ -106,20 +135,13 @@ public:
                 cubo_03 = temp1;
                 cubo_02 = temp4;
 
-                char tempcolor1 = ptr2[0][0].second;
-                char tempcolor2 = ptr2[0][1].second;
-                ptr2[0][0].second = ptr2[0][2].second;
-                ptr2[0][1].second = ptr2[0][5].second;
-                ptr2[0][2].second = ptr2[0][8].second;
-                ptr2[0][5].second = ptr2[0][7].second;
-                ptr2[0][8].second = ptr2[0][6].second;
-                ptr2[0][7].second = ptr2[0][3].second;
-                ptr2[0][6].second = tempcolor1;
-                ptr2[0][3].second = tempcolor2;
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[0][i]->rot_z();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[0][i].first->set_rotation(radians, glm::vec3(0.0f, 1.0f, 0.0f), model_X);
+                ptr2[0][i]->set_rotation(radians, glm::vec3(0.0f, 1.0f, 0.0f), model_X);
         }
         else if (U_action == 2) {
             contador_interacion++;
@@ -140,10 +162,14 @@ public:
                 cubo_27 = temp7;
                 cubo_17 = temp4;
 
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[1][i]->rot_y();
+
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[1][i].first->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+                ptr2[1][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
 
         }
         else if (U_action == 8) {
@@ -165,10 +191,14 @@ public:
                 cubo_21 = temp1;
                 cubo_11 = temp4;
 
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[1][i]->rot_y();
+
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[1][i].first->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+                ptr2[1][i]->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
         }
         else if (U_action == 3) {
             contador_interacion++;
@@ -177,7 +207,7 @@ public:
                 U_action = 0;
                 std::cout << "\nRotacion finalizada\n";
 
-            //actualizando valores
+                //actualizando valores
                 Cubo temp7 = cubo_07;
                 Cubo temp8 = cubo_08;
                 cubo_07 = cubo_09;
@@ -188,11 +218,15 @@ public:
                 cubo_28 = cubo_17;
                 cubo_27 = temp7;
                 cubo_17 = temp8;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[3][i]->rot_x();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
 
             for (int i = 0; i < 9; i++)
-                ptr2[3][i].first->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+                ptr2[3][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
         }
         else if (U_action == 9) {
             contador_interacion++;
@@ -212,11 +246,15 @@ public:
                 cubo_19 = cubo_08;
                 cubo_09 = temp7;
                 cubo_08 = temp17;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[3][i]->rot_x();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
 
             for (int i = 0; i < 9; i++)
-                ptr2[3][i].first->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+                ptr2[3][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
         }
         else if (U_action == 4) {
             contador_interacion++;
@@ -236,10 +274,14 @@ public:
                 cubo_26 = cubo_19;
                 cubo_29 = temp9;
                 cubo_19 = temp6;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[2][i]->rot_y();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[2][i].first->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+                ptr2[2][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
 
         }
         else if (U_action == 10) {
@@ -260,10 +302,14 @@ public:
                 cubo_13 = cubo_06;
                 cubo_03 = temp9;
                 cubo_06 = temp19;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[2][i]->rot_y();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[2][i].first->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+                ptr2[2][i]->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
 
         }
         else if (U_action == 5) {
@@ -284,11 +330,15 @@ public:
                 cubo_22 = cubo_11;
                 cubo_21 = temp1;
                 cubo_11 = temp2;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[4][i]->rot_x();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[4][i].first->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
-   
+                ptr2[4][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+
         }
         else if (U_action == 11) {
             contador_interacion++;
@@ -308,10 +358,14 @@ public:
                 cubo_13 = cubo_02;
                 cubo_03 = temp1;
                 cubo_02 = temp11;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[4][i]->rot_x();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[4][i].first->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+                ptr2[4][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
 
         }
         else if (U_action == 6) {
@@ -332,10 +386,14 @@ public:
                 cubo_28 = cubo_24;
                 cubo_27 = temp21;
                 cubo_24 = temp22;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[5][i]->rot_z();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[5][i].first->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
+                ptr2[5][i]->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
         }
         else if (U_action == 12) {
             contador_interacion++;
@@ -355,93 +413,47 @@ public:
                 cubo_26 = cubo_22;
                 cubo_23 = temp21;
                 cubo_22 = temp24;
+
+                //actualizado colores
+                for (int i = 0; i < 9; i++)
+                    ptr2[5][i]->rot_z();
             }
             glm::mat4 model_X = glm::mat4(1.0f);
             for (int i = 0; i < 9; i++)
-                ptr2[5][i].first->set_rotation(radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
-            }
-
+                ptr2[5][i]->set_rotation(radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
+        }
+    }
+    void render(GLFWwindow* window, glm::mat4 view, glm::mat4 projection) {
+        this->input(window);
+        this->handle_solution_animations(window);
+        this->animations();
         cubo_01.render(view, projection);
-        cubo_01.input(window);
-
         cubo_02.render(view, projection);
-        cubo_02.input(window);
-
         cubo_03.render(view, projection);
-        cubo_03.input(window);
-
         cubo_04.render(view, projection);
-        cubo_04.input(window);
-
         cubo_05.render(view, projection);
-        cubo_05.input(window);
-
         cubo_06.render(view, projection);
-        cubo_06.input(window);
-
         cubo_07.render(view, projection);
-        cubo_07.input(window);
-
         cubo_08.render(view, projection);
-        cubo_08.input(window);
-
         cubo_09.render(view, projection);
-        cubo_09.input(window);
-
         cubo_11.render(view, projection);
-        cubo_11.input(window);
-
         cubo_12.render(view, projection);
-        cubo_12.input(window);
-
         cubo_13.render(view, projection);
-        cubo_13.input(window);
-
         cubo_14.render(view, projection);
-        cubo_14.input(window);
-
         cubo_15.render(view, projection);
-        cubo_15.input(window);
-
         cubo_16.render(view, projection);
-        cubo_16.input(window);
-
         cubo_17.render(view, projection);
-        cubo_17.input(window);
-
         cubo_18.render(view, projection);
-        cubo_18.input(window);
-
         cubo_19.render(view, projection);
-        cubo_19.input(window);
-
         cubo_21.render(view, projection);
-        cubo_21.input(window);
-
         cubo_22.render(view, projection);
-        cubo_22.input(window);
-
         cubo_23.render(view, projection);
-        cubo_23.input(window);
-
         cubo_24.render(view, projection);
-        cubo_24.input(window);
-
         cubo_25.render(view, projection);
-        cubo_25.input(window);
-
         cubo_26.render(view, projection);
-        cubo_26.input(window);
-
         cubo_27.render(view, projection);
-        cubo_27.input(window);
-
         cubo_28.render(view, projection);
-        cubo_28.input(window);
-
         cubo_29.render(view, projection);
-        cubo_29.input(window);
-
     }
 
     glm::vec4 g = glm::vec4(0.0f, 0.607f, 0.282f, 1.0f);
@@ -452,10 +464,8 @@ public:
     glm::vec4 o = glm::vec4(1.0f, 0.345f, 0.0f, 1.0f);
     glm::vec4 bk = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
-
-
     bool resolver() {
-        std::string cubeString = mapeo();
+        std::string cubeString = mapping();
         std::istringstream file(cubeString);
         file >> rubik_solver;
         rubik_solver.solve(solution);
@@ -463,31 +473,61 @@ public:
         for (unsigned int i = 0; i < solution.size(); ++i)
             std::cout << solution[i];
         std::cout << endl;
-
+        //_resolver = true;
         return true;
     }
 
-    std::string mapeo() {
+    /*
+    UP,LEFT,FRONT,RIGHT,BEHING,DOWN
+    */
+    std::string mapping() {
         std::string rubik_colors;
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 9; j++) {
-                rubik_colors += ptr2[i][j].second;
+        //UP
+        for (int i = 0; i < 9; i++) {
+                rubik_colors += ptr2[0][i]->getColor(0);
                 rubik_colors += " ";
-            }
-            rubik_colors += "\n";
         }
-        for (int j = 0; j < 9; j++) {
-            rubik_colors += ptr2[5][j].second;
+        rubik_colors += "\n";
+        //LEFT
+        for (int i = 0; i < 9; i++) {
+            rubik_colors += ptr2[1][i]->getColor(2);
             rubik_colors += " ";
         }
+        rubik_colors += "\n";
+        //FRONT
+        for (int i = 0; i < 9; i++) {
+            rubik_colors += ptr2[4][i]->getColor(1);
+            rubik_colors += " ";
+        }
+        rubik_colors += "\n";
+        //RIGHT
+        for (int i = 0; i < 9; i++) {
+            rubik_colors += ptr2[2][i]->getColor(2);
+            rubik_colors += " ";
+        }
+        rubik_colors += "\n";
+        //BEHING
+        for (int i = 0; i < 9; i++) {
+            rubik_colors += ptr2[3][i]->getColor(1);
+            rubik_colors += " ";
+        }
+        rubik_colors += "\n";
+        //DOWN
+        for (int i = 0; i < 9; i++) {
+            rubik_colors += ptr2[5][i]->getColor(0);
+            rubik_colors += " ";
+        }
+
+        std::cout << rubik_colors << "\n"<<"===========================================\n";
+     
         return rubik_colors;
     }
 
 private:
     std::vector<char> solution;
     Rubik rubik_solver;
-    glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    //glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 model = glm::mat4(1.0f);
 
     /*
 
@@ -501,52 +541,52 @@ private:
     */
 
     //fila 1 
-    Cubo cubo_01{ std::vector<glm::vec4>{bk,b,o,bk,bk,w},  glm::vec3(-1.1f, 1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_02{ std::vector<glm::vec4>{bk,b,bk,bk,bk,w}, glm::vec3(0.0f, 1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_03{ std::vector<glm::vec4>{bk,b,bk,r,bk,w},  glm::vec3(1.1f, 1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_04{ std::vector<glm::vec4>{bk,bk,o,bk,bk,w}, glm::vec3(-1.1f, 1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_05{ std::vector<glm::vec4>{bk,bk,bk,bk,bk,w},  glm::vec3(0.0f, 1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_06{ std::vector<glm::vec4>{bk,bk,bk,r,bk,w},  glm::vec3(1.1f, 1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_07{ std::vector<glm::vec4>{g,bk,o,bk,bk,w},  glm::vec3(-1.1f, 1.1f,-1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_08{ std::vector<glm::vec4>{g,bk,bk,bk,bk,w},  glm::vec3(0.0f, 1.1f,-1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_09{ std::vector<glm::vec4>{g,bk,bk,r,bk,w},  glm::vec3(1.1f, 1.1f,-1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_01{ std::vector<glm::vec4>{bk,g,o,bk,bk,w}, "gow", glm::vec3(-1.1f, 1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model};
+    Cubo cubo_02{ std::vector<glm::vec4>{bk,g,bk,bk,bk,w}, "gyw", glm::vec3(0.0f, 1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_03{ std::vector<glm::vec4>{bk,g,bk,r,bk,w}, "grw", glm::vec3(1.1f, 1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_04{ std::vector<glm::vec4>{bk,bk,o,bk,bk,w}, "xow", glm::vec3(-1.1f, 1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_05{ std::vector<glm::vec4>{bk,bk,bk,bk,bk,w}, "xyw", glm::vec3(0.0f, 1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_06{ std::vector<glm::vec4>{bk,bk,bk,r,bk,w},  "xrw", glm::vec3(1.1f, 1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_07{ std::vector<glm::vec4>{b,bk,o,bk,bk,w}, "low", glm::vec3(-1.1f, 1.1f,-1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_08{ std::vector<glm::vec4>{b,bk,bk,bk,bk,w}, "lyw",  glm::vec3(0.0f, 1.1f,-1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_09{ std::vector<glm::vec4>{b,bk,bk,r,bk,w}, "lrw",  glm::vec3(1.1f, 1.1f,-1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
 
     //fila 2
-    Cubo cubo_11{ std::vector<glm::vec4>{bk, b, o, bk, bk, bk}, glm::vec3(-1.1f, 0.0f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_12{ std::vector<glm::vec4>{bk,b,bk,bk,bk,bk}, glm::vec3(0.0f, 0.0f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_13{ std::vector<glm::vec4>{bk, b, bk, r, bk, bk}, glm::vec3(1.1f, 0.0f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_14{ std::vector<glm::vec4>{bk,bk,o,bk,bk,bk}, glm::vec3(-1.1f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_15{ std::vector<glm::vec4>{bk,bk,bk,bk,bk,bk}, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_16{ std::vector<glm::vec4>{bk,bk,bk,r,bk,bk}, glm::vec3(1.1f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_17{ std::vector<glm::vec4>{g,bk,o,bk,bk,bk}, glm::vec3(-1.1f, 0.0f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_18{ std::vector<glm::vec4>{g,bk,bk,bk,bk,bk}, glm::vec3(0.0f, 0.0f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
-    Cubo cubo_19{ std::vector<glm::vec4>{g,bk,bk,r,bk,bk}, glm::vec3(1.1f, 0.0f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_11{ std::vector<glm::vec4>{bk, g, o, bk, bk, bk}, "go-", glm::vec3(-1.1f, 0.0f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_12{ std::vector<glm::vec4>{bk, g,bk,bk,bk,bk}, "gy-", glm::vec3(0.0f, 0.0f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_13{ std::vector<glm::vec4>{bk, g, bk, r, bk, bk}, "gr-", glm::vec3(1.1f, 0.0f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_14{ std::vector<glm::vec4>{bk,bk,o,bk,bk,bk}, "xo-", glm::vec3(-1.1f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_15{ std::vector<glm::vec4>{bk,bk,bk,bk,bk,bk}, "xy-", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_16{ std::vector<glm::vec4>{bk,bk,bk,r,bk,bk}, "xr-", glm::vec3(1.1f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_17{ std::vector<glm::vec4>{b,bk,o,bk,bk,bk}, "lo-", glm::vec3(-1.1f, 0.0f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_18{ std::vector<glm::vec4>{b,bk,bk,bk,bk,bk}, "ly-", glm::vec3(0.0f, 0.0f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
+    Cubo cubo_19{ std::vector<glm::vec4>{b,bk,bk,r,bk,bk}, "lr-", glm::vec3(1.1f, 0.0f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model };
 
     //fila 3
-    Cubo cubo_21 = Cubo(std::vector<glm::vec4>{bk, b, o, bk, y, bk}, glm::vec3(-1.1f, -1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_22 = Cubo(std::vector<glm::vec4>{bk, b, bk, bk, y, bk}, glm::vec3(0.0f, -1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_23 = Cubo(std::vector<glm::vec4>{bk, b, bk, r, y, bk}, glm::vec3(1.1f, -1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_24 = Cubo(std::vector<glm::vec4>{bk, bk, o, bk, y, bk}, glm::vec3(-1.1f, -1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_25 = Cubo(std::vector<glm::vec4>{bk, bk, bk, bk, y, bk}, glm::vec3(0.0f, -1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_26 = Cubo(std::vector<glm::vec4>{bk, bk, bk, r, y, bk}, glm::vec3(1.1f, -1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_27 = Cubo(std::vector<glm::vec4>{g, bk, o, bk, y, bk}, glm::vec3(-1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_28 = Cubo(std::vector<glm::vec4>{g, bk, bk, bk, y, bk}, glm::vec3(0.0f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
-    Cubo cubo_29 = Cubo(std::vector<glm::vec4>{g, bk, bk, r, y, bk}, glm::vec3(1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_21 = Cubo(std::vector<glm::vec4>{bk, g, o, bk, y, bk}, "goy", glm::vec3(-1.1f, -1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_22 = Cubo(std::vector<glm::vec4>{bk, g, bk, bk, y, bk}, "g-y", glm::vec3(0.0f, -1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_23 = Cubo(std::vector<glm::vec4>{bk, g, bk, r, y, bk}, "gry", glm::vec3(1.1f, -1.1f, 1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_24 = Cubo(std::vector<glm::vec4>{bk, bk, o, bk, y, bk}, "-oy", glm::vec3(-1.1f, -1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_25 = Cubo(std::vector<glm::vec4>{bk, bk, bk, bk, y, bk}, "--y", glm::vec3(0.0f, -1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_26 = Cubo(std::vector<glm::vec4>{bk, bk, bk, r, y, bk}, "-ry", glm::vec3(1.1f, -1.1f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_27 = Cubo(std::vector<glm::vec4>{b, bk, o, bk, y, bk}, "loy", glm::vec3(-1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_28 = Cubo(std::vector<glm::vec4>{b, bk, bk, bk, y, bk}, "l-y", glm::vec3(0.0f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
+    Cubo cubo_29 = Cubo(std::vector<glm::vec4>{b, bk, bk, r, y, bk}, "lry", glm::vec3(1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
 
 
-    pair<Cubo*, char> ptr2[6][9] =
+    Cubo* ptr2[6][9] =
     {
         //UP
-        {make_pair(&cubo_01,'w'),make_pair(&cubo_02,'w'),make_pair(&cubo_03,'w'),make_pair(&cubo_04,'w'),make_pair(&cubo_05,'w'),make_pair(&cubo_06,'w'),make_pair(&cubo_07,'w'),make_pair(&cubo_08,'w'),make_pair(&cubo_09,'w')},
+        {&cubo_01,&cubo_02,&cubo_03,&cubo_04,&cubo_05,&cubo_06,&cubo_07,&cubo_08,&cubo_09},
         //left
-        {make_pair(&cubo_01,'o'),make_pair(&cubo_04,'o'),make_pair(&cubo_07,'o'),make_pair(&cubo_17,'o'),make_pair(&cubo_14,'o'),make_pair(&cubo_11,'o'),make_pair(&cubo_27,'o'),make_pair(&cubo_24,'o'),make_pair(&cubo_21,'o')},
+        {&cubo_01,&cubo_04,&cubo_07,&cubo_17,&cubo_14,&cubo_11,&cubo_27,&cubo_24,&cubo_21},
         //Right
-        {make_pair(&cubo_09,'g'),make_pair(&cubo_06,'g'),make_pair(&cubo_03,'g'),make_pair(&cubo_19,'g'),make_pair(&cubo_16,'g'),make_pair(&cubo_13,'g'),make_pair(&cubo_29,'g'),make_pair(&cubo_26,'g'),make_pair(&cubo_23,'g')},
-        //front
-        {make_pair(&cubo_07,'r'),make_pair(&cubo_08,'r'),make_pair(&cubo_09,'r'),make_pair(&cubo_17,'r'),make_pair(&cubo_18,'r'),make_pair(&cubo_19,'r'),make_pair(&cubo_27,'r'),make_pair(&cubo_28,'r'),make_pair(&cubo_29,'r')},
+        {&cubo_09,&cubo_06,&cubo_03,&cubo_19,&cubo_16,&cubo_13,&cubo_29,&cubo_26,&cubo_23},
         //behind
-        {make_pair(&cubo_01,'l'),make_pair(&cubo_02,'l'),make_pair(&cubo_03,'l'),make_pair(&cubo_11,'l'),make_pair(&cubo_12,'l'),make_pair(&cubo_13,'l'),make_pair(&cubo_21,'l'),make_pair(&cubo_22,'l'),make_pair(&cubo_23,'l')},
+        {&cubo_07,&cubo_08,&cubo_09,&cubo_17,&cubo_18,&cubo_19,&cubo_27,&cubo_28,&cubo_29},
+        //front
+        {&cubo_01,&cubo_02,&cubo_03,&cubo_11,&cubo_12,&cubo_13,&cubo_21,&cubo_22,&cubo_23},
         //down
-        {make_pair(&cubo_21,'y'),make_pair(&cubo_22,'y'),make_pair(&cubo_23,'y'),make_pair(&cubo_24,'y'),make_pair(&cubo_25,'y'),make_pair(&cubo_26,'y'),make_pair(&cubo_27,'y'),make_pair(&cubo_28,'y'),make_pair(&cubo_29,'y')}
+        {&cubo_21,&cubo_22,&cubo_23,&cubo_24,&cubo_25,&cubo_26,&cubo_27,&cubo_28,&cubo_29}
     };
 };
