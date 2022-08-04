@@ -13,11 +13,13 @@
 #include <string.h>
 #include <sstream> 
 
+#include "solver.h"
+
 #include "plano.h"
 #include "cubo.h"
 #include "defineRubik.h"
 #include "cubo_rubik.h"
-#include "cubo_rubik.cpp"
+//#include "cubo_rubik.cpp"
 
 
 /*/////////////////////////////////////////////////
