@@ -3,7 +3,6 @@
 class Cubo {
 public:
     glm::mat4 model;
-    //glm::mat4 view;
 
     //trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
     /*

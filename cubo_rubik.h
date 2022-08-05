@@ -46,10 +46,10 @@ public:
                 case 'f':
                     U_action = 5;
                     break;
-                case 'W':
+                case 'w':
                     U_action = 9;
                     break;
-                case 'w':
+                case 'W':
                     U_action = 3;
                     break;
                 case 'R':
@@ -64,10 +64,10 @@ public:
                 case 'l':
                     U_action = 2;
                     break;
-                case 'D':
+                case 'd':
                     U_action = 6;
                     break;
-                case 'd':
+                case 'D':
                     U_action = 12;
                     break;
                 default:
@@ -82,6 +82,8 @@ public:
             this->resolver();
         if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS && !_resolver)
             this->printHistoriaMov();
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS && !_resolver)
+            this->mapping();
         if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && U_action == 0)
             U_action = 1;
         if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && U_action == 0)
@@ -232,8 +234,8 @@ public:
                 if (contador_interacion >= velocidad) {
                     contador_interacion = 0;
                     U_action = 0;
-                    std::cout << "\nRotacion finalizada: b\n";
-                    lista_mov.push_back('b');
+                    std::cout << "\nRotacion finalizada: B\n";
+                    lista_mov.push_back('B');
                     //actualizando valores
                     Cubo temp7 = cubo_07;
                     Cubo temp8 = cubo_08;
@@ -260,8 +262,8 @@ public:
                 if (contador_interacion >= velocidad) {
                     contador_interacion = 0;
                     U_action = 0;
-                    std::cout << "\nRotacion finalizada: B\n";
-                    lista_mov.push_back('B');
+                    std::cout << "\nRotacion finalizada: b\n";
+                    lista_mov.push_back('b');
                     //actualizando valores
                     Cubo temp7 = cubo_07;
                     Cubo temp17 = cubo_17;
@@ -400,8 +402,8 @@ public:
                 if (contador_interacion >= velocidad) {
                     contador_interacion = 0;
                     U_action = 0;
-                    std::cout << "\nRotacion finalizada: D\n";
-                    lista_mov.push_back('D');
+                    std::cout << "\nRotacion finalizada: d\n";
+                    lista_mov.push_back('d');
                     //actualizando valores
                     Cubo temp21 = cubo_21;
                     Cubo temp22 = cubo_22;
@@ -427,8 +429,8 @@ public:
                 if (contador_interacion >= velocidad) {
                     contador_interacion = 0;
                     U_action = 0;
-                    std::cout << "\nRotacion finalizada: d\n";
-                    lista_mov.push_back('d');
+                    std::cout << "\nRotacion finalizada: D\n";
+                    lista_mov.push_back('D');
                     //actualizando valores
                     Cubo temp21 = cubo_21;
                     Cubo temp24 = cubo_24;
@@ -551,30 +553,10 @@ public:
         return rubik_colors;
     }
 
-    /*
-    UP,LEFT,FRONT,RIGHT,BEHING,DOWN
-    */
-    /*
-    std::string mapping_2() {
-        rubik_solver_2.red[0] = ;
-        rubik_solver_2.red[1] = ;
-        rubik_solver_2.red[2] = ;
-        rubik_solver_2.red[3] = ;
-        rubik_solver_2.red[4] = ;
-        rubik_solver_2.red[5] = ;
-        rubik_solver_2.red[6] = ;
-        rubik_solver_2.red[7] = ;
-        rubik_solver_2.red[8] = ;
-    }
-    */
-
-
-
 private:
     std::vector<char> solution;
     Rubik rubik_solver;
 
-    Solver rubik_solver_2;
     //glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 model = glm::mat4(1.0f);
 
@@ -622,11 +604,10 @@ private:
     Cubo cubo_28 = Cubo(std::vector<glm::vec4>{b, bk, bk, bk, y, bk}, "l-y", glm::vec3(0.0f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
     Cubo cubo_29 = Cubo(std::vector<glm::vec4>{b, bk, bk, r, y, bk}, "lry", glm::vec3(1.1f, -1.1f, -1.1f), glm::vec3(0.2f, 0.2f, 0.2f), model);
 
-
     Cubo* ptr2[6][9] =
     {
         //UP
-        {&cubo_09,&cubo_08,&cubo_07,&cubo_06,&cubo_05,&cubo_04,&cubo_03,&cubo_02,&cubo_01},
+        {&cubo_07,&cubo_08,&cubo_09,&cubo_04,&cubo_05,&cubo_06,&cubo_01,&cubo_02,&cubo_03},
         //left
         {&cubo_07,&cubo_04,&cubo_01,&cubo_17,&cubo_14,&cubo_11,&cubo_27,&cubo_24,&cubo_21},
         //Right

@@ -13,8 +13,6 @@
 #include <string.h>
 #include <sstream> 
 
-#include "solver.h"
-
 #include "plano.h"
 #include "cubo.h"
 #include "defineRubik.h"
