@@ -17,7 +17,6 @@
 #include "cubo.h"
 #include "defineRubik.h"
 #include "cubo_rubik.h"
-//#include "cubo_rubik.cpp"
 
 
 /*/////////////////////////////////////////////////
@@ -107,7 +106,7 @@ int main()
     float angle = 20.0f * 2;
 
 
-    cubo_rubick* Holaaa = new cubo_rubick();
+    cubo_rubik* Holaaa = new cubo_rubik();
     
     //Holaaa->resolver();
     //Holaaa->mapeo();
