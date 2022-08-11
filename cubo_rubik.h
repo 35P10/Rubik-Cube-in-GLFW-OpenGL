@@ -197,9 +197,8 @@ void cubo_rubik::U() {
         for (int i = 0; i < 9; i++)
             ptr2[0][i]->rot_z();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[0][i]->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f), model);
+        ptr2[0][i]->set_rotation(-radians, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void cubo_rubik::u() {
@@ -225,9 +224,8 @@ void cubo_rubik::u() {
         for (int i = 0; i < 9; i++)
             ptr2[0][i]->rot_z();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[0][i]->set_rotation(radians, glm::vec3(0.0f, 1.0f, 0.0f), model_X);
+        ptr2[0][i]->set_rotation(radians, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void cubo_rubik::l() {
@@ -254,9 +252,8 @@ void cubo_rubik::l() {
             ptr2[1][i]->rot_y();
 
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[1][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+        ptr2[1][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 void cubo_rubik::L() {
@@ -283,9 +280,8 @@ void cubo_rubik::L() {
             ptr2[1][i]->rot_y();
 
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[1][i]->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+        ptr2[1][i]->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 void cubo_rubik::D() {
@@ -311,9 +307,8 @@ void cubo_rubik::D() {
         for (int i = 0; i < 9; i++)
             ptr2[5][i]->rot_z();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[5][i]->set_rotation(radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
+        ptr2[5][i]->set_rotation(radians, glm::vec3(0.0f, 0.1f, 0.0f));
 }
 void cubo_rubik::B() {
     contador_interacion++;
@@ -338,10 +333,8 @@ void cubo_rubik::B() {
         for (int i = 0; i < 9; i++)
             ptr2[3][i]->rot_x();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
-
     for (int i = 0; i < 9; i++)
-        ptr2[3][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+        ptr2[3][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 void cubo_rubik::b() {
     contador_interacion++;
@@ -366,10 +359,8 @@ void cubo_rubik::b() {
         for (int i = 0; i < 9; i++)
             ptr2[3][i]->rot_x();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
-
     for (int i = 0; i < 9; i++)
-        ptr2[3][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+        ptr2[3][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 void cubo_rubik::R() {
     contador_interacion++;
@@ -394,9 +385,8 @@ void cubo_rubik::R() {
         for (int i = 0; i < 9; i++)
             ptr2[2][i]->rot_y();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[2][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+        ptr2[2][i]->set_rotation(-radians, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void cubo_rubik::r() {
     contador_interacion++;
@@ -421,9 +411,8 @@ void cubo_rubik::r() {
         for (int i = 0; i < 9; i++)
             ptr2[2][i]->rot_y();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[2][i]->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f), model_X);
+        ptr2[2][i]->set_rotation(radians, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void cubo_rubik::f() {
     contador_interacion++;
@@ -448,9 +437,8 @@ void cubo_rubik::f() {
         for (int i = 0; i < 9; i++)
             ptr2[4][i]->rot_x();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[4][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+        ptr2[4][i]->set_rotation(radians, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 void cubo_rubik::F() {
     contador_interacion++;
@@ -475,9 +463,8 @@ void cubo_rubik::F() {
         for (int i = 0; i < 9; i++)
             ptr2[4][i]->rot_x();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[4][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f), model_X);
+        ptr2[4][i]->set_rotation(-radians, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 void cubo_rubik::d() {
     contador_interacion++;
@@ -502,9 +489,8 @@ void cubo_rubik::d() {
         for (int i = 0; i < 9; i++)
             ptr2[5][i]->rot_z();
     }
-    glm::mat4 model_X = glm::mat4(1.0f);
     for (int i = 0; i < 9; i++)
-        ptr2[5][i]->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f), model_X);
+        ptr2[5][i]->set_rotation(-radians, glm::vec3(0.0f, 0.1f, 0.0f));
 }
 void cubo_rubik::handle_solution_animations(GLFWwindow* window) {
     if (_resolver && U_action == 0) {

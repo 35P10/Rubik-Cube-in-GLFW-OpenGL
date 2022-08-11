@@ -87,7 +87,7 @@ public:
             lados[i].render(transform,model,view, projection);
     }
 
-    void set_rotation(float rot_grades, glm::vec3 rot_vect, glm::mat4 _transform) {
+    void set_rotation(float rot_grades, glm::vec3 rot_vect) {
         glm::mat4 model_2 = glm::rotate(glm::mat4(1.0f), glm::radians(rot_grades), rot_vect);
         transform = model_2 * transform;
     }
