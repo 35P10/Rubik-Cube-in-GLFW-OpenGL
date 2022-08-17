@@ -1,22 +1,25 @@
-project( Trabajo_Final_glfw )
+cmake_minimum_required(VERSION 3.0.0)
+project(Rubik_Cube VERSION 0.1.0)
 
 message( "Configuring main application - ${PROJECT_NAME} : " )
 
 # OpenGL
 find_package(OpenGL REQUIRED)
 
+set( DEPENDENCY_DIR 
+${CMAKE_CURRENT_SOURCE_DIR}/dep)
+
 file(GLOB SOURCES "*.cpp" ${DEPENDENCY_DIR}/include/glad/glad/glad.c )
 file(GLOB HEADERS "*.h" )
 file(GLOB SHADERS "*.vert" "*.frag" "*.vs" "*.fs" )
 
 include_directories( 
-${DEPENDENCY_DIR}/include/glad/ 
-${DEPENDENCY_DIR}/include/glfw/
-${DEPENDENCY_DIR}/include/freeimage/
-${DEPENDENCY_DIR}/include/glew
-${DEPENDENCY_DIR}/include/glm
-${DEPENDENCY_DIR}/include/freeglut
-
+    ${DEPENDENCY_DIR}/include/glad/ 
+    ${DEPENDENCY_DIR}/include/glfw/
+    ${DEPENDENCY_DIR}/include/freeimage/
+    ${DEPENDENCY_DIR}/include/glew
+    ${DEPENDENCY_DIR}/include/glm
+    ${DEPENDENCY_DIR}/include/freeglut
 )
 
 message( "\nBuild mode test is: ${CMAKE_BUILD_TYPE}" )
