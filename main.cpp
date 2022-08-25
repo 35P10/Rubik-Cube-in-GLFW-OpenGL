@@ -18,17 +18,6 @@
 #include "defineRubik.h"
 #include "cubo_rubik.h"
 
-
-/*/////////////////////////////////////////////////
-// INSTRUCCIONES //
-    Q => Giro eje X izquierda
-    E => Giro eje X derecha
-    W => Giro eje Y izquierda
-    S => Giro eje Y derecha
-    A => Giro eje Z izquierda
-    D => Giro eje Z derecha
-/////////////////////////////////////////////////*/
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -56,16 +45,27 @@ float fov = 45.0f;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-//colores
-#define AZUL glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
-#define ROJO glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
-#define VERDE glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)
-#define MAGENTA glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)
-#define CELESTE glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)
-#define AMARILLO glm::vec4(1.0f, 0.835f,0.0f,1.0f)
-
 int main()
 {
+    std::cout <<"Movements\n:----------------\n";
+    std::cout <<"U  = U key\n";
+    std::cout <<"U' = I key\n";
+    std::cout <<"L  = P key\n";
+    std::cout <<"L' = L key\n";
+    std::cout <<"F  = U key\n";
+    std::cout <<"F' = I key\n";
+    std::cout <<"R  = R key\n";
+    std::cout <<"R' = T key\n";
+    std::cout <<"F  = G key\n";
+    std::cout <<"F' = F key\n";
+    std::cout <<"R  = U key\n";
+    std::cout <<"R' = I key\n";
+    std::cout <<"B  = U key\n";
+    std::cout <<"B' = I key\n";
+    std::cout <<"D  = U key\n";
+    std::cout <<"D' = I key\n";
+    std::cout <<"Solver' = I key\n";
+
     // glfw: initialize and configure 
     // ------------------------------
     glfwInit();
@@ -105,11 +105,9 @@ int main()
     glm::mat4 model = glm::mat4(1.0f);
     float angle = 20.0f * 2;
 
-
     cubo_rubik* Holaaa = new cubo_rubik();
     
-    //Holaaa->resolver();
-    //Holaaa->mapeo();
+
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = static_cast<float>(glfwGetTime());
