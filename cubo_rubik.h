@@ -533,11 +533,11 @@ void cubo_rubik::handle_solution_animations(GLFWwindow* window) {
         case 'l':
             U_action = 2;
             break;
-        case 'd':
-            U_action = 6;
-            break;
         case 'D':
             U_action = 12;
+            break;
+        case 'd':
+            U_action = 6;
             break;
         default:
             std::cout << "Accion no reconocida: " << mov << "\n";
